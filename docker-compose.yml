@@ -1,0 +1,50 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    networks:
+      netbird-services:
+        ipv4_address: ${APP_IP}
+    environment:
+      - DB_HOST=${DB_IP}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASSWORD}
+    volumes:
+      - ${DATA_PATH_HOST}:/var/www/html 
+    restart: unless-stopped
+
+  database:
+    image: mariadb:lts-ubi9
+    container_name: db
+    networks:
+      netbird-services:
+        ipv4_address: ${DB_IP}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    networks:
+      netbird-services:
+        ipv4_address: ${PMA_IP}
+    environment:
+      PMA_HOST: ${DB_IP}
+      PMA_ARBITRARY: 1
+    restart: unless-stopped
+
+networks:
+  netbird-services:
+    external: true
+
+volumes:
+  db_data:
