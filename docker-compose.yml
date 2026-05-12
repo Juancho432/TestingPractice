@@ -42,9 +42,25 @@ services:
       PMA_ARBITRARY: 1
     restart: unless-stopped
 
+  mantis:
+    image: xlrl/mantisbt:latest
+    container_name: mantis
+    environment:
+      MANTIS_TIMEZONE: ${TZ}
+      MANTIS_ENABLE_ADMIN: 1
+    networks:
+      netbird-services:
+        ipv4_address: ${MANTIS_IP}
+    volumes:
+      - ${MANTIS_CONFIG_PATH}:/var/www/html/config
+      - ${MANTIS_CUSTOM_PATH}:/var/www/html/custom
+    restart: unless-stopped
+
+# IMPORTANTE: Al final de tu archivo, asegúrate de registrar el nuevo volumen
+volumes:
+  db_data:
+  mantis_config:
+
 networks:
   netbird-services:
     external: true
-
-volumes:
-  db_data:
