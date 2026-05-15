@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
   const login = useCallback(async (email, password) => {
     if (!email || !password) throw new Error('Completa todos los campos.');
     // BUG 1: endpoint incorrecto — debería ser authApi.login(email, password)
-    const { ok, data } = await authApi.loginSession(email, password).catch(() => ({
+    const { ok, data } = await authApi.login(email, password).catch(() => ({
       ok: false,
       data: { error: 'Error de conexión con el servidor.' },
     }));
