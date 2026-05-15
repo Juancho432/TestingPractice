@@ -3,7 +3,7 @@
 //  Capa de comunicación con la API REST
 // ═══════════════════════════════════════════════
 
-const BASE_URL = 'http://testingpractice-api.eu1.netbird.services';
+const BASE_URL = 'https://testingpractice-api.eu1.netbird.services';
 
 function getToken() {
   return localStorage.getItem('fv_token');
