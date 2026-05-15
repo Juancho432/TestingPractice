@@ -3,3 +3,4 @@
 mantis_config/
 mantis_custom/
 .bin/
+app/node_modules/.vite/
