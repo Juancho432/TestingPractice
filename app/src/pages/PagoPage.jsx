@@ -2,10 +2,10 @@
 //  src/pages/PagoPage.jsx
 // ═══════════════════════════════════════════════
 
-import { useState }    from 'react';
-import { useCart }     from '../context/CartContext';
-import { useToast }    from '../context/ToastContext';
-import { carritoApi }  from '../api/client';
+import { useState } from 'react';
+import { useCart } from '../context/CartContext';
+import { useToast } from '../context/ToastContext';
+import { carritoApi } from '../api/client';
 import { fmt, fmtCardNumber, fmtExpiry } from '../utils/formatters';
 
 const SANDBOX_CARDS = [
@@ -19,11 +19,11 @@ export default function PagoPage({ onNavigate }) {
   const { cart, totals, clearCart } = useCart();
   const { showToast } = useToast();
 
-  const [cardNum,  setCardNum]  = useState('');
+  const [cardNum, setCardNum] = useState('');
   const [cardName, setCardName] = useState('');
-  const [cardExp,  setCardExp]  = useState('');
-  const [cardCvv,  setCardCvv]  = useState('');
-  const [loading,  setLoading]  = useState(false);
+  const [cardExp, setCardExp] = useState('');
+  const [cardCvv, setCardCvv] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const fillCard = (c) => { setCardNum(c.num); setCardName('TITULAR PRUEBA'); setCardExp(c.exp); setCardCvv(c.cvv); };
 
@@ -96,7 +96,7 @@ export default function PagoPage({ onNavigate }) {
               {/* BUG 2: maxLength es 2 en lugar de 4. No permite ingresar 3 dígitos. */}
               <div className="field">
                 <label>CVV</label>
-                <input className="inp" placeholder="123" maxLength={2} type="password" value={cardCvv} onChange={e => setCardCvv(e.target.value)} />
+                <input className="inp" placeholder="123" maxLength={4} type="password" value={cardCvv} onChange={e => setCardCvv(e.target.value)} />
               </div>
             </div>
 
